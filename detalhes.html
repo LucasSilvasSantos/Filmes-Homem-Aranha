@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalhes do Filme</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="styles.css" rel="stylesheet">
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark navbar-custom">
+        <div class="container-fluid">
+            <a class="navbar-brand logo" href="index.html">lktflix</a>
+        </div>
+    </nav>
+
+    <main class="container my-5">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="embed-responsive embed-responsive-16by9 mb-4">
+                    <iframe id="movie-trailer" class="embed-responsive-item" width="560" height="315" src=""
+                        frameborder="0" allowfullscreen></iframe>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <h1 id="movie-title"></h1>
+                <p id="movie-description" class="lead"></p>
+                <div class="movie-info">
+                    <p><strong>Ano:</strong> <span id="movie-year"></span></p>
+                    <p><strong>Diretor:</strong> <span id="movie-director"></span></p>
+                    <p><strong>Elenco:</strong> <span id="movie-cast"></span></p>
+                </div>
+                <button class="btn btn-primary mt-3" onclick="history.back()">Voltar</button>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        const moviesData = {
+            "1": {
+                title: "Homem-Aranha",
+                description: "Depois de ser picado por uma aranha geneticamente modificada em uma demonstração científica, o jovem nerd Peter Parker ganha superpoderes. Inicialmente, ele pretende usá-los para para ganhar dinheiro, adotando o nome de Homem-Aranha e se apresentando em lutas de exibição. Porém, ao presenciar o assassinando de seu tio Ben e sentir-se culpado, Peter decide não mais usar seus poderes para proveito próprio e sim para enfrentar o mal, tendo como seu primeiro grande desafio o psicótico Duende Verde.",
+                trailer: "https://www.youtube.com/embed/t06RUxPbp_c",
+                year: "2002",
+                director: "Sam Raimi",
+                cast: "Tobey Maguire, Kirsten Dunst, Willem Dafoe"
+            },
+            "2": {
+                title: "Homem-Aranha 2",
+                description: "Peter tenta equilibrar sua vida pessoal com a de super-herói, enfrentando o Dr. Octopus (Otto Octavius), um cientista brilhante que se torna uma ameaça após um experimento dar errado. Peter também enfrenta dilemas sobre continuar como o Homem-Aranha.",
+                trailer: "https://www.youtube.com/embed/1s9Yln0YwCw",
+                year: "2004",
+                director: "Sam Raimi",
+                cast: "Tobey Maguire, Kirsten Dunst, Alfred Molina"
+            },
+            "3": {
+                title: "Homem-Aranha 3",
+                description: "Peter enfrenta múltiplos vilões: Homem-Areia, Venom, e o novo Duende Verde (seu ex-amigo Harry). Ele também lida com o simbionte alienígena que muda sua personalidade, tornando-o mais agressivo.",
+                trailer: "https://www.youtube.com/embed/e5wUilOeOmg",
+                year: "2007",
+                director: "Sam Raimi",
+                cast: "Tobey Maguire, Kirsten Dunst, James Franco"
+            },
+            "4": {
+                title: "O Espetacular Homem-Aranha",
+                image: "imagens/o espetacular homem aranha.jpg",
+                description: "Peter Parker é um jovem curioso e rebelde que ganha poderes de aranha após visitar o laboratório da Oscorp. Enfrenta o vilão Lagarto (Dr. Curt Connors), um cientista que busca regenerar o próprio braço com DNA de réptil. Começa um romance com Gwen Stacy.",
+                trailer: "https://www.youtube.com/embed/-tnxzJ0SSOw",
+                year: "2012",
+                director: "Marc Webb",
+                cast: "Andrew Garfield, Emma Stone, Rhys Ifans"
+            },
+            "5": {
+                title: "O Espetacular Homem-Aranha 2",
+                image: "imagens/o espetacular homem aranha 2.jpg",
+                description: "Peter enfrenta Electro, um antigo fã que se transforma em vilão após um acidente, e também Harry Osborn, que vira o novo Duende Verde. O filme tem uma das cenas mais tristes da franquia com a morte de Gwen Stacy.",
+                trailer: "https://www.youtube.com/embed/DlM2CWNTQ84",
+                year: "2014",
+                director: "Marc Webb",
+                cast: "Andrew Garfield, Emma Stone, Jamie Foxx"
+            },
+            "6": {
+                title: "Homem-Aranha: De Volta ao Lar",
+                image: "imagens/images (2).jpg",
+                description: "Após sua introdução em Capitão América: Guerra Civil, Peter retorna ao ensino médio e tenta provar seu valor para Tony Stark. Enfrenta o Abutre (pai da sua crush Liz) enquanto tenta ser um herói independente.",
+                trailer: "https://www.youtube.com/embed/n9DwoQ7HWvI",
+                year: "2017",
+                director: "Jon Watts",
+                cast: "Tom Holland, Michael Keaton, Robert Downey Jr."
+            },
+            "7": {
+                title: "Homem-Aranha: Longe de Casa",
+                image: "imagens/images (3).jpg",
+                description: "Após a morte de Tony Stark em Vingadores: Ultimato, Peter tenta tirar férias com os amigos na Europa, mas é recrutado por Nick Fury para enfrentar o vilão Mysterio. O final traz uma revelação chocante sobre sua identidade secreta.",
+                trailer: "https://www.youtube.com/embed/DYYtuKyMtY8",
+                year: "2019",
+                director: "Jon Watts",
+                cast: "Tom Holland, Jake Gyllenhaal, Samuel L. Jackson"
+            },
+            "8": {
+                title: "Homem-Aranha: Sem Volta para Casa",
+                image: "imagens/Homem-Aranha_-_Sem_Volta_Para_Casa.webp",
+                description: "Peter pede ajuda ao Doutor Estranho para apagar sua identidade da memória das pessoas, mas o feitiço dá errado e vilões de outros universos começam a surgir: Duende Verde, Dr. Octopus, Electro, entre outros. Os outros dois Homens-Aranha (Tobey e Andrew) aparecem para ajudá-lo.",
+                trailer: "https://www.youtube.com/embed/JfVOs4VSpmA",
+                year: "2021",
+                director: "Jon Watts",
+                cast: "Tom Holland, Zendaya, Benedict Cumberbatch"
+            },
+            "9": {
+                title: "Homem-Aranha: Através do Aranhaverso",
+                image: "imagens/images (4).jpg",
+                description: "Animação com Miles Morales",
+                trailer: "https://www.youtube.com/embed/BbXJ3_AQE_o",
+                year: "2023",
+                director: "Joaquim Dos Santos, Kemp Powers, Justin K. Thompson",
+                cast: "Shameik Moore, Hailee Steinfeld, Oscar Isaac"
+            },
+            "10": {
+                title: "Capitão América: Guerra Civil",
+                image: "imagens/capitao.jpg",
+                description: "Filme onde o Homem-Aranha aparece no MCU",
+                trailer: "https://www.youtube.com/embed/dKrVegVI0Us",
+                year: "2016",
+                director: "Anthony Russo, Joe Russo",
+                cast: "Chris Evans, Robert Downey Jr., Scarlett Johansson"
+            }
+        };
+
+        
+        document.addEventListener('DOMContentLoaded', function () {
+            const urlParams = new URLSearchParams(window.location.search);
+            const movieId = urlParams.get('id');
+
+            if (movieId && moviesData[movieId]) {
+                const movie = moviesData[movieId];
+
+                document.getElementById('movie-title').textContent = movie.title;
+                document.getElementById('movie-description').textContent = movie.description;
+                document.getElementById('movie-trailer').src = movie.trailer;
+                document.getElementById('movie-year').textContent = movie.year;
+                document.getElementById('movie-director').textContent = movie.director;
+                document.getElementById('movie-cast').textContent = movie.cast;
+            } else {
+                
+                window.location.href = 'index.html';
+            }
+        });
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>
