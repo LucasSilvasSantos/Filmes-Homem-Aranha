@@ -153,7 +153,7 @@ window.toggleFavorite = function (event, movieId) {
     localStorage.setItem(`favorite_${movieId}`, isFavorite);
 
     const movie = moviesData.find(m => m.id === movieId);
-    console.log(isFavorite ? `Adicionado aos favoritos: ${movie.title}` :
+    alert(isFavorite ? `Adicionado aos favoritos: ${movie.title}` :
         `Removido dos favoritos: ${movie.title}`);
 }
 
@@ -198,6 +198,12 @@ window.moverDestaque = function(direction) {
 function loadMovies() {
     loadDestaque(); 
     filterMovies('all'); 
+    document.querySelectorAll('.movie-img, #destaque-imagem').forEach(img => {
+        img.addEventListener('load', () => {
+            img.classList.add('loaded');
+        });
+    });
+
 }
 
 
